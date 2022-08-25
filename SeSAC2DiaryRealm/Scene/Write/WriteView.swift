@@ -9,6 +9,8 @@ import UIKit
 
 class WriteView: BaseView {
    
+    
+    
     let userImageView: DiaryImageView = {
         let view = DiaryImageView(frame: .zero)
         return view
@@ -17,12 +19,16 @@ class WriteView: BaseView {
     let titleTextField: WriteTextField = {
         let view = WriteTextField()
         view.placeholder = "제목을 입력해주세요"
+        view.textColor = .white
+        
         return view
     }()
     
     let dateTextField: WriteTextField = {
         let view = WriteTextField()
         view.placeholder = "날짜를 입력해주세요"
+        
+        view.textColor = .white
         return view
     }()
     
@@ -43,24 +49,35 @@ class WriteView: BaseView {
         return view
     }()
     
-    let sampleButton: UIButton = {
+    let cancelButton: UIButton = {
         let view = UIButton()
-        view.backgroundColor = .green
+        view.backgroundColor = .systemGray4
+        view.setImage(UIImage(systemName: "xmark"), for: .normal)
+        view.tintColor = .red
+        return view
+    }()
+    
+    let saveButton: UIButton = {
+        let view = UIButton()
+        view.backgroundColor = .systemGray5
+        view.setTitle("저장", for: .normal)
+        view.setTitleColor(UIColor.black, for: .normal)
         return view
     }()
     
     // MARK: - Methods
     override func configureUI() {
-        [userImageView, titleTextField, dateTextField, contentTextView, searchImageButton, sampleButton].forEach {
+        [userImageView, titleTextField, dateTextField, contentTextView, searchImageButton, cancelButton, saveButton].forEach {
             self.addSubview($0)
         }
     }
      
     override func setConstraints() {
         
-        sampleButton.snp.makeConstraints { make in
-            make.width.height.equalTo(50)
-            make.trailing.top.equalTo(self.safeAreaLayoutGuide)
+        cancelButton.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+            make.topMargin.equalTo(userImageView.snp.top).offset(0)
+            make.trailingMargin.equalTo(userImageView.snp.trailing).offset(0)
         }
         
         userImageView.snp.makeConstraints { make in
@@ -88,13 +105,21 @@ class WriteView: BaseView {
             make.top.equalTo(dateTextField.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(20)
             make.trailing.equalTo(self).offset(-20)
-            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
+            make.bottomMargin.equalTo(saveButton.snp.top).offset(-10)
         }
         
         searchImageButton.snp.makeConstraints { make in
             make.trailing.equalTo(userImageView.snp.trailing).offset(-12)
             make.bottom.equalTo(userImageView.snp.bottom).offset(-12)
             make.width.height.equalTo(50)
+        }
+        
+        saveButton.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.bottomMargin.equalTo(-10)
+            make.leading.equalTo(self).offset(20)
+            make.trailing.equalTo(self).offset(-20)
+            
         }
     }
 

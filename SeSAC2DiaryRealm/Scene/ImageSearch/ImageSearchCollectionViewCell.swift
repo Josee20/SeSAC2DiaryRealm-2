@@ -17,7 +17,7 @@ class ImageSearchCollectionViewCell: BaseCollectionViewCell {
         view.backgroundColor = Constants.BaseColor.background
         return view
     }()
-        
+  
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
